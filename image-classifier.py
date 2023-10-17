@@ -1,9 +1,11 @@
 import streamlit as st
 import tensorflow as tf
 import tensorflow_hub as hub
+from PIL import Image, ImageOps
+import numpy as np
 
 # Function to load the pre-trained model
-@st.cache_resource
+@st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model('weights-improvement-10-0.91.hdf5', custom_objects={'KerasLayer': hub.KerasLayer})
     return model
@@ -16,10 +18,6 @@ st.write("Using the image you've uploaded, this website classifies what time of 
 
 # File uploader
 file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
-
-import cv2
-from PIL import Image, ImageOps
-import numpy as np
 
 # Function to preprocess and predict the image
 def import_and_predict(image_data, model):
@@ -46,3 +44,23 @@ else:
     class_label = class_names[class_index]
     string = "Prediction: " + class_label
     st.success(string)
+
+# Safety Tips
+st.markdown("---")
+st.header("Safety Tips")
+
+if class_label == "Day Time":
+    st.write("Safety Tips for Day Time:")
+    st.write("1. Stay hydrated and drink plenty of water.")
+    st.write("2. Use sunscreen to protect your skin from the sun's harmful UV rays.")
+    st.write("3. Wear sunglasses to protect your eyes from sunlight.")
+elif class_label == "Night Time":
+    st.write("Safety Tips for Night Time:")
+    st.write("1. Ensure proper lighting in dark areas to prevent accidents.")
+    st.write("2. Be aware of your surroundings and stay alert.")
+    st.write("3. Use reflective clothing or accessories for visibility.")
+elif class_label == "Sunrise":
+    st.write("Safety Tips for Sunrise:")
+    st.write("1. Enjoy the beautiful sunrise safely.")
+    st.write("2. If you're outside, be cautious of morning dew, it can make surfaces slippery.")
+    st.write("3. Be mindful of early morning traffic if you're on the road.")

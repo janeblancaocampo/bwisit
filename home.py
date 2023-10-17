@@ -14,26 +14,21 @@ weather_data = {
     "Wind Speed": "5 km/h",
 }
 
+# Simulated weather icons
+st.image("path_to_weather_icon.png", caption="Weather Icon", use_column_width=True)
+
+# CSS to set the background image
+background_image_style = """
+<style>
+body {
+    background-image: url('path_to_background_image.jpg');
+    background-size: cover;
+}
+</style>
+"""
+st.markdown(background_image_style, unsafe_allow_html=True)
+
 # Display current date and time
 current_time = datetime.now()
 st.subheader("Current Date and Time")
 st.write(current_time.strftime('%Y-%m-%d %H:%M:%S'))
-
-# Weather UI
-st.subheader("Current Weather Conditions")
-st.write("Location: [Your Location]")
-
-# Display simulated weather data
-for key, value in weather_data.items():
-    st.write(f"{key}: {value}")
-
-# Simulated weather icons
-st.image("path_to_weather_icon.png", caption="Weather Icon", use_column_width=True)
-
-# Additional weather information
-st.subheader("Additional Weather Information")
-st.write("Today's Forecast: [Your forecast here]")
-
-# Weather radar or map (replace with an actual map component)
-st.subheader("Weather Radar")
-st.image("path_to_weather_radar.png", caption="Weather Radar", use_column_width=True)
